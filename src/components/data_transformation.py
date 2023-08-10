@@ -73,7 +73,9 @@ def initiate_data_transformation(self, train_path, test_path):
 
         logging.info("Read test data completed")
 
-        logging.info("obtaining preprocessor bjecr")
+        logging.info("obtaining preprocessor object")
+        
+        
 
     except:
         pass
