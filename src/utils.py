@@ -15,6 +15,19 @@ def save_object(file_path, obj):
 
         with open(file_path, "wb") as file_obj:
             dill.dump(obj, file_obj)
-            
+
     except Exception as e:
         raise CustomException(e, sys.exc_info)
+
+
+def evaluate_model(x, y, models):
+    try:
+        report = {}
+
+        for i in range(len(list(models))):
+            model = list(models.values())[i]
+
+            models.fit(x_train, y_train)  # traini the miodel
+
+    except:
+        pass
