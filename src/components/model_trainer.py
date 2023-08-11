@@ -17,6 +17,7 @@ from xgboost import XGBRegressor
 from src.logger import logging
 from src.exception import CustomException
 from src.utils import save_object
+from src.utils import evaluate_model
 
 
 @dataclass
@@ -50,7 +51,15 @@ class ModelTrainer:
                 }
                 model_report: dict = evaluate_model(
                     x_train=x_train, y_train=y_train, x_test=x_test, y_test=y_test, models=models)
-                
 
-            except:
-                pass
+                # get the best model score from dict
+                best_model_score = max(sorted(model_report.values()))
+
+                # to get best model name from dict
+
+                best_model_name = list(model_report.keys())[
+                    list(model_report.values()).index(best_model_score)
+                ]
+
+            except Exception as e:
+                raise CustomException(e, sys.exc_info())

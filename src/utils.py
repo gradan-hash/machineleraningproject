@@ -3,6 +3,8 @@ import sys
 import pandas as pd
 import numpy as np
 import dill
+from sklearn.metrics import r2_score
+
 
 from src.exception import CustomException
 from src.logger import logging
@@ -20,7 +22,7 @@ def save_object(file_path, obj):
         raise CustomException(e, sys.exc_info)
 
 
-def evaluate_model(x, y, models):
+def evaluate_model(x_train, y_train,x_test,y_test, models):
     try:
         report = {}
 
@@ -28,6 +30,18 @@ def evaluate_model(x, y, models):
             model = list(models.values())[i]
 
             models.fit(x_train, y_train)  # traini the miodel
+            
+            y-train_pred =model.predict(x_train)
+            y_test_pred = model.predict(x_test)
+            
+            train_model_score =r2_score(y_train, y_train_pred)
+            
+            test_model_scores = r2_score(y_test, y_test_pred)
+            
+            report[list(models.keys())[i]] =test_model_score
 
-    except:
-        pass
+            return report
+            
+
+    except Exception as e:
+      raise CustomException(e, sys.exc_info())
