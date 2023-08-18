@@ -14,10 +14,10 @@ class Predictpipeline:
 
         try:
             model_path = "artifacts\model.pkl"
-            preprocesssor = "artifacts\preprocesssor.pkl"
+            preproccessor_path = "artifacts\preprocessor.pkl"
 
             model = load_object(file_path=model_path)
-            preproccessor_path = load_object(file_path=preproccessor_path)
+            preprocesssor = load_object(file_path=preproccessor_path)
 
             data_scaled = preprocesssor.transform(features)
 
@@ -57,7 +57,7 @@ class CustomData:
                 "writing_score": [self.writing_score]
             }
 
-            return pd.Dataframe(custom_data_input_dict)
+            return pd.DataFrame(custom_data_input_dict)
 
         except Exception as e:
             raise CustomException(e, sys)
